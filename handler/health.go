@@ -10,7 +10,7 @@ package handler
 import (
 	"context" //Para manejar el contexto de las solicitudes gRPC.
 
-	pb "github.com/go-micro/demo/productcatalogservice/proto"
+	pb "github.com/zenyatta-web/command-services/proto"
 	"google.golang.org/grpc/codes"  //Para manejar los códigos de estado y errores en gRPC.
 	"google.golang.org/grpc/status" //Para manejar los códigos de estado y errores en gRPC.
 )
