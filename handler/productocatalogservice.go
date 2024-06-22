@@ -24,7 +24,7 @@ import (
 		El paquete generado a partir de las definiciones de Protobuf, contiene los mensajes y servicios
 		definidos en los archivos .proto.
 	*/
-	pb "github.com/zenyatta-web/command-services/proto"
+	pb "zenyatta-web/command-services/proto"
 )
 
 var reloadCatalog bool // Una bandera para determinar si el catálogo debe ser recargado.

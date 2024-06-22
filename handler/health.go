@@ -10,16 +10,17 @@ package handler
 import (
 	"context" //Para manejar el contexto de las solicitudes gRPC.
 
-	pb "github.com/zenyatta-web/command-services/proto"
 	"google.golang.org/grpc/codes"  //Para manejar los códigos de estado y errores en gRPC.
 	"google.golang.org/grpc/status" //Para manejar los códigos de estado y errores en gRPC.
+
+	pb "zenyatta-web/command-services/proto"
 )
 
 type Health struct{} //La estructura Health actúa como el receptor para los métodos de verificación de salud.
 
 // Este método simplemente asigna el estado SERVING a la respuesta, indicando que el servicio está operativo.
-func (h *Health) Check(ctx context.Context, req *pb.HealthCheckRequest, rsp *pb.HealthCehckResponse) error {
-	rsp.Status = pb.HealCheckResponse_SERVING
+func (h *Health) Check(ctx context.Context, req *pb.HealthCheckRequest, rsp *pb.HealthCheckResponse) error {
+	rsp.Status = pb.HealthCheckResponse_SERVING
 	return nil
 }
 

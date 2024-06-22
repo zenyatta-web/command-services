@@ -32,9 +32,9 @@ update:
 	@go get -u
 
 # Realiza una limpieza de los módulos Go y sus dependencias.
-.PHONY: tidy
-tidy:
-	@go mod tidy
+# .PHONY: tidy
+# tidy:
+# 	@go mod tidy
 
 # Compila el código Go en un ejecutable llamado productcatalogservice.
 .PHONY: build

@@ -12,10 +12,6 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 )
 
-// newTracerProvider returns an OpenTelemetry TracerProvider configured to use
-// the Jaeger exporter that will send spans to the provided url. The returned
-// TracerProvider will also use a Resource configured with all the information
-// about the application.
 func newTracerProvider(serviceName, serviceID, url string) (*tracesdk.TracerProvider, error) {
 	/*Esta función newTracerProvider crea y configura un exportador Jaeger
 	 	para enviar trazas a la URL especificada. Luego, utiliza este exportador para

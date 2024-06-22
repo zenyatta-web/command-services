@@ -1,7 +1,3 @@
-/*
-    Este archivo es una definición de Protobuf que describe la estructura de los mensajes y 
-    servicios relacionados con el catálogo de productos.
-*/
 // Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");

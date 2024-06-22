@@ -1,9 +1,9 @@
 module zenyatta-web/command-services
 
-go 1.20
+go 1.19
 
 require (
-	go-micro.dev/v4 v4.10.2
+	go-micro.dev/v4 v4.11.0
 	google.golang.org/protobuf v1.34.1
 )
 
@@ -14,11 +14,18 @@ require (
 	github.com/cloudflare/circl v1.2.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
+	github.com/evanphx/json-patch/v5 v5.5.0 // indirect
+	github.com/felixge/httpsnoop v1.0.1 // indirect
+	github.com/go-acme/lego/v4 v4.4.0 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
 	github.com/go-git/go-billy/v5 v5.3.1 // indirect
 	github.com/go-git/go-git/v5 v5.4.2 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/gobwas/httphead v0.1.0 // indirect
+	github.com/gobwas/pool v0.2.1 // indirect
+	github.com/gobwas/ws v1.0.4 // indirect
+	github.com/gorilla/handlers v1.5.1 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
@@ -26,7 +33,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
-	github.com/urfave/cli/v2 v2.17.1 // indirect
+	github.com/urfave/cli/v2 v2.25.7 // indirect
 	github.com/xanzy/ssh-agent v0.3.2 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	go.opentelemetry.io/otel v1.17.0 // indirect

@@ -7,11 +7,12 @@ import (
 	"zenyatta-web/command-services/config"
 	"zenyatta-web/command-services/handler"
 
+	pb "zenyatta-web/command-services/proto"
+
 	grpcc "github.com/go-micro/plugins/v4/client/grpc"
 	_ "github.com/go-micro/plugins/v4/registry/kubernetes"
 	grpcs "github.com/go-micro/plugins/v4/server/grpc"
 	"github.com/go-micro/plugins/v4/wrapper/trace/opentelemetry"
-	pb "github.com/zenyatta-web/command-services/proto"
 	"go-micro.dev/v4"
 	"go-micro.dev/v4/logger"
 	"go-micro.dev/v4/server"

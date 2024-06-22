@@ -1,7 +1,3 @@
-/*Estos archivos forman parte del microservicio productcatalogservice y están relacionados 
-con la definición y la implementación de servicios y mensajes mediante 
-Protocol Buffers (Protobuf) y gRPC en Go. 
-*/
 syntax = "proto3";
 
 package hipstershop;

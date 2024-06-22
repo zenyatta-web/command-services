@@ -3,7 +3,7 @@
 # 1. Primera Etapa: Builder
 # Utiliza la imagen base de Golang 1.19.0 sobre Alpine Linux, lo cual es una versión ligera de Linux. 
 # La etiqueta AS builder define un alias para esta etapa de construcción.
-FROM golang:1.19.0-alpine AS builder
+FROM golang:1.20.2-alpine AS builder
 
 # Establece variables de entorno para deshabilitar CGO (código C en Go) y especificar 
 #   que el sistema operativo objetivo es Linux.
@@ -34,7 +34,7 @@ RUN make init && go mod download
 COPY . .
 
 # Ejecuta comandos definidos en el Makefile para compilar archivos de Protocol Buffers y limpiar dependencias.
-RUN make proto tidy
+#RUN make proto tidy
 
 # Define un argumento para pasar opciones de depuración de skaffold.
 ARG SKAFFOLD_GO_GCFLAGS
