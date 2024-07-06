@@ -15,6 +15,7 @@ import (
 type Config struct {
 	Port    int
 	Tracing TraicingConfig //rastreo
+	Mongo   MongoConfig
 }
 
 type TraicingConfig struct {
@@ -24,6 +25,11 @@ type TraicingConfig struct {
 
 type JaegerConfig struct {
 	URL string
+}
+
+type MongoConfig struct {
+	URI      string
+	Database string
 }
 
 var cfg *Config = &Config{
@@ -36,6 +42,12 @@ func Address() string {
 
 func Tracing() TraicingConfig {
 	return cfg.Tracing
+}
+
+func Mongo() MongoConfig {
+	cfg.Mongo.Database = "zen"
+	cfg.Mongo.URI = ""
+	return cfg.Mongo
 }
 
 func Load() error {

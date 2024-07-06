@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 	"zenyatta-web/command-services/config"
+	"zenyatta-web/command-services/data/database"
 	"zenyatta-web/command-services/handler"
 
 	pb "zenyatta-web/command-services/proto"
@@ -32,10 +33,19 @@ func main() {
 		logger.Fatal(err)
 	}
 
-	/*
-		Luego, crea una instancia del servicio utilizando micro.NewService()
-		y configura las opciones del servidor y del cliente.
-	*/
+	// Conexión a MongoDB
+	mongoConfig := config.Mongo()
+	db, err := database.NewDatabase(mongoConfig.URI, mongoConfig.Database)
+	if err != nil {
+		logger.Fatal(err)
+	}
+	defer func() {
+		if err := db.Close(); err != nil {
+			logger.Fatal("Error closing MongoDB connection: %v", err)
+		}
+	}()
+
+	// Crear una instancia del servicio utilizando micro.NewService()
 	srv := micro.NewService(
 		micro.Server(grpcs.NewServer()),
 		micro.Client(grpcc.NewClient()),
@@ -46,11 +56,7 @@ func main() {
 		micro.Address(config.Address()),
 	}
 
-	/*
-		Si la trazabilidad está habilitada en la configuración, se configura un
-		proveedor de trazas y se establecen opciones de trazabilidad utilizando
-		la biblioteca OpenTelemetry.
-	*/
+	// Configuración de trazabilidad
 	if cfg := config.Tracing(); cfg.Enable {
 		tp, err := newTracerProvider(name, srv.Server().Options().Id, cfg.Jaeger.URL)
 		if err != nil {
@@ -76,22 +82,18 @@ func main() {
 		opts = append(opts, micro.WrapHandler(opentelemetry.NewHandlerWrapper(traceOpts...)))
 	}
 
-	//A continuación, se inicializa el servicio con las opciones configuradas.
+	// Inicialización del servicio con las opciones configuradas.
 	srv.Init(opts...)
 
-	/*
-		Se registran los controladores de los servicios de catálogo de productos
-		y de salud utilizando pb.RegisterProductCatalogServiceHandler()
-		y pb.RegisterHealthHandler().
-	*/
-	if err := pb.RegisterProductCatalogServiceHandler(srv.Server(), new(handler.ProductCatalogService)); err != nil {
+	// Registro de los controladores de los servicios de catálogo de productos y de salud
+	if err := pb.RegisterProductCatalogServiceHandler(srv.Server(), new(handler.ProductCatalogService)); err != nil { // Pasar la conexión a MongoDB al handler
 		logger.Fatal(err)
 	}
 	if err := pb.RegisterHealthHandler(srv.Server(), new(handler.Health)); err != nil {
 		logger.Fatal(err)
 	}
 
-	// Run service
+	// Ejecutar el servicio
 	if err := srv.Run(); err != nil {
 		logger.Fatal(err)
 	}
