@@ -7,9 +7,10 @@ package config
 
 import (
 	"fmt"
+	"log"
 
-	"go-micro.dev/v4/config"            //permite manejar la configuracion.
-	"go-micro.dev/v4/config/source/env" //permite cargar la configuracion desde variables de entorno.
+	"github.com/joho/godotenv"
+	"github.com/spf13/viper"
 )
 
 type Config struct {
@@ -45,26 +46,23 @@ func Tracing() TraicingConfig {
 }
 
 func Mongo() MongoConfig {
-	cfg.Mongo.Database = "zen"
-	cfg.Mongo.URI = ""
 	return cfg.Mongo
 }
 
 func Load() error {
-	//Se crea una nueva instancia de configuracion.
-	configor, err := config.NewConfig(config.WithSource(env.NewSource()))
-	if err != nil {
-		return fmt.Errorf("configor.New: %w", err)
+	// Cargar variables de entorno desde un archivo .env
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error cargando las variables de entorno", err)
 	}
 
-	//Se carga la coonfiguracion.
-	if err := configor.Load(); err != nil {
-		return fmt.Errorf("configor.Load: %w", err)
-	}
+	// Configurar viper para leer variables de entorno
+	viper.AutomaticEnv()
 
-	//Se escanea y asigna la configuración cargada a la variable global cfg.
-	if err := configor.Scan(cfg); err != nil {
-		return fmt.Errorf("configor.Scan: %w", err)
-	}
+	cfg.Port = viper.GetInt("PORT")
+	cfg.Tracing.Enable = viper.GetBool("TRACING_ENABLE")
+	cfg.Tracing.Jaeger.URL = viper.GetString("JAEGER_URL")
+	cfg.Mongo.URI = viper.GetString("MONGO_URI")
+	cfg.Mongo.Database = viper.GetString("MONGO_DATABASE")
+
 	return nil
 }

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package hipstershop;
+
+option go_package = "./proto;hipstershop";
+
+message User {
+}
+
+service UsersService {
+    rpc HolaMundo (HolaMundoRequest) returns (HolaMundoResponse);
+}
+
+message HolaMundoRequest {
+}
+
+message HolaMundoResponse {
+    string message = 1;
+}
