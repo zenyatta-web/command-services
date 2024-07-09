@@ -22,7 +22,7 @@ func main() {
 	mongoConfig := config.Mongo()
 	db, err := database.NewDatabase(mongoConfig.URI, mongoConfig.Database)
 	if err != nil {
-		log.Fatalf("Failed to connect to MongoDB: %v", err)
+		log.Fatalf("Error conectando a MongoDB: %v", err)
 	}
 	defer func() {
 		if err := db.Close(); err != nil {

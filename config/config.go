@@ -52,15 +52,13 @@ func Mongo() MongoConfig {
 func Load() error {
 	// Cargar variables de entorno desde un archivo .env
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error cargando las variables de entorno", err)
+		log.Fatal("Error cargando las variables de entorno: ", err)
 	}
 
 	// Configurar viper para leer variables de entorno
 	viper.AutomaticEnv()
 
 	cfg.Port = viper.GetInt("PORT")
-	cfg.Tracing.Enable = viper.GetBool("TRACING_ENABLE")
-	cfg.Tracing.Jaeger.URL = viper.GetString("JAEGER_URL")
 	cfg.Mongo.URI = viper.GetString("MONGO_URI")
 	cfg.Mongo.Database = viper.GetString("MONGO_DATABASE")
 

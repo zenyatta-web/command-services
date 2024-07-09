@@ -4,7 +4,7 @@
 // - protoc             v5.27.1
 // source: proto/users.proto
 
-package hipstershop
+package zen
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	UsersService_HolaMundo_FullMethodName = "/hipstershop.UsersService/HolaMundo"
+	UsersService_HolaMundo_FullMethodName = "/zen.UsersService/HolaMundo"
 )
 
 // UsersServiceClient is the client API for UsersService service.
@@ -97,7 +97,7 @@ func _UsersService_HolaMundo_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var UsersService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "hipstershop.UsersService",
+	ServiceName: "zen.UsersService",
 	HandlerType: (*UsersServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
