@@ -12,11 +12,6 @@ import (
 	"google.golang.org/grpc"
 )
 
-var (
-	name    = "zen-command-service"
-	version = "1.0.0"
-)
-
 func main() {
 	// Comienza cargando la configuración necesaria del servicio.
 	if err := config.Load(); err != nil {
