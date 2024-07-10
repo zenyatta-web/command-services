@@ -1,4 +1,4 @@
-package repository
+package database
 
 import (
 	"context"
@@ -8,15 +8,15 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type mongoRepository struct {
+type userMongoRepository struct {
 	usersCollection *mongo.Collection
 }
 
-func NewMongoRepository(usersCollection *mongo.Collection) UserRepository {
-	return &mongoRepository{usersCollection}
+func ConstructorUserMongoRepository(usersCollection *mongo.Collection) *userMongoRepository {
+	return &userMongoRepository{usersCollection}
 }
 
-func (r *mongoRepository) CreateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
+func (r *userMongoRepository) CreateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
 	result, err := r.usersCollection.InsertOne(ctx, user)
 	if err != nil {
 		return nil, err
@@ -30,7 +30,7 @@ func (r *mongoRepository) CreateUser(ctx context.Context, user *models.UserModel
 	return user, nil
 }
 
-func (r *mongoRepository) UpdateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
+func (r *userMongoRepository) UpdateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
 	filter := bson.M{"_id": user.Id}
 	update := bson.M{"$set": user}
 

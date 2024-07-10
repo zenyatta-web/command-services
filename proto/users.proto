@@ -9,6 +9,7 @@ message User {
 
 service UsersService {
     rpc HolaMundo (HolaMundoRequest) returns (HolaMundoResponse);
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
 }
 
 message HolaMundoRequest {
@@ -16,4 +17,17 @@ message HolaMundoRequest {
 
 message HolaMundoResponse {
     string message = 1;
+}
+
+message CreateUserRequest {
+    string IdAuth0 = 1;
+    string name = 2;
+    bool status = 3;
+}
+
+message CreateUserResponse {
+    string id = 1;
+    string IdAuth0 = 2;
+    string name = 3;
+    bool status = 4;
 }

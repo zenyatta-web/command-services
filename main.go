@@ -30,6 +30,9 @@ func main() {
 		}
 	}()
 
+	proveedor := database.ConstructorUserMongoRepository(db.Database.Collection("users"))
+	handler.ConstructorUsersServiceServer(proveedor)
+
 	// Inicialización del servidor gRPC
 	lis, err := net.Listen("tcp", config.Address())
 	if err != nil {

@@ -5,7 +5,7 @@ import (
 	"zenyatta-web/command-services/data/models"
 )
 
-type UserRepository interface {
+type UserRepositoryDatabase interface {
 	CreateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error)
 	UpdateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error)
 }

@@ -14,18 +14,8 @@ import (
 )
 
 type Config struct {
-	Port    int
-	Tracing TraicingConfig //rastreo
-	Mongo   MongoConfig
-}
-
-type TraicingConfig struct {
-	Enable bool
-	Jaeger JaegerConfig
-}
-
-type JaegerConfig struct {
-	URL string
+	Port  int
+	Mongo MongoConfig
 }
 
 type MongoConfig struct {
@@ -39,10 +29,6 @@ var cfg *Config = &Config{
 
 func Address() string {
 	return fmt.Sprintf(":%d", cfg.Port)
-}
-
-func Tracing() TraicingConfig {
-	return cfg.Tracing
 }
 
 func Mongo() MongoConfig {

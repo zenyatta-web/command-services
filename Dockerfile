@@ -33,7 +33,7 @@ COPY --from=builder /go/src/zen-command-services/zen-command-services /zen-comma
 
 # Definir variables de entorno (opcional si las cargas desde .env)
 ENV PORT=50052
-ENV MONGO_URI=""
+ENV MONGO_URI="mongodb+srv://mendieta19ns:A1em3yKnw7RmqvL0@zen.xqsdoat.mongodb.net/"
 ENV MONGO_DATABASE="zen"
 
 ENTRYPOINT ["/zen-command-services/zen-command-services"]
