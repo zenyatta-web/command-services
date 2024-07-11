@@ -15,6 +15,8 @@ type UsersServiceServer struct {
 }
 
 func ConstructorUsersServiceServer(userDatabase repository.UserRepositoryDatabase) *UsersServiceServer {
+	log.Printf("userDatabase recibido: %v", userDatabase)
+
 	return &UsersServiceServer{
 		userDatabase: userDatabase,
 	}

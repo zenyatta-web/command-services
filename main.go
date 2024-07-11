@@ -10,6 +10,7 @@ import (
 	pb "zenyatta-web/command-services/proto"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -31,7 +32,8 @@ func main() {
 	}()
 
 	proveedor := database.ConstructorUserMongoRepository(db.Database.Collection("users"))
-	handler.ConstructorUsersServiceServer(proveedor)
+	log.Printf("Proveedor: %v", proveedor)
+	userServiceServer := handler.ConstructorUsersServiceServer(proveedor)
 
 	// Inicialización del servidor gRPC
 	lis, err := net.Listen("tcp", config.Address())
@@ -39,11 +41,14 @@ func main() {
 		log.Fatalf("Failed to listen on port %v: %v", config.Address(), err)
 	}
 
-	s := grpc.NewServer()
-	pb.RegisterUsersServiceServer(s, &handler.UsersServiceServer{})
+	server := grpc.NewServer()
+	pb.RegisterUsersServiceServer(server, userServiceServer)
+
+	// Habilitar la reflexión
+	reflection.Register(server)
 
 	log.Printf("Starting gRPC server on %v", config.Address())
-	if err := s.Serve(lis); err != nil {
+	if err := server.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve gRPC server: %v", err)
 	}
 }

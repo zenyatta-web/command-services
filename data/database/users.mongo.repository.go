@@ -8,15 +8,15 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type userMongoRepository struct {
+type UserMongoRepository struct {
 	usersCollection *mongo.Collection
 }
 
-func ConstructorUserMongoRepository(usersCollection *mongo.Collection) *userMongoRepository {
-	return &userMongoRepository{usersCollection}
+func ConstructorUserMongoRepository(usersCollection *mongo.Collection) *UserMongoRepository {
+	return &UserMongoRepository{usersCollection}
 }
 
-func (r *userMongoRepository) CreateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
+func (r *UserMongoRepository) CreateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
 	result, err := r.usersCollection.InsertOne(ctx, user)
 	if err != nil {
 		return nil, err
@@ -30,7 +30,7 @@ func (r *userMongoRepository) CreateUser(ctx context.Context, user *models.UserM
 	return user, nil
 }
 
-func (r *userMongoRepository) UpdateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
+func (r *UserMongoRepository) UpdateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
 	filter := bson.M{"_id": user.Id}
 	update := bson.M{"$set": user}
 
