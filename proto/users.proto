@@ -4,28 +4,49 @@ package zen;
 
 option go_package = "./proto;zen";
 
+//La definición del mensaje del usuario se puede ampliar según sea necesario
 message User {
+    string id = 1;
+    string idAuth0 = 2;
+    string name = 3;
+    bool status = 4;
 }
 
+//Definición de servicio para operaciones relacionadas con el usuario.
 service UsersService {
     rpc HolaMundo (HolaMundoRequest) returns (HolaMundoResponse);
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
 }
 
+//// Request and response messages for HolaMundo
 message HolaMundoRequest {
 }
-
 message HolaMundoResponse {
     string message = 1;
 }
 
+// Request and response messages para crear un usuario
 message CreateUserRequest {
     string IdAuth0 = 1;
     string name = 2;
     bool status = 3;
 }
-
 message CreateUserResponse {
+    string id = 1;
+    string id_auth0 = 2;
+    string name = 3;
+    bool status = 4;
+}
+
+// Request and response messages para actualizar un usuario
+message UpdateUserRequest {
+    string id = 1;
+    string IdAuth0 = 2;
+    string name = 3;
+    bool status = 4;
+}
+message UpdateUserResponse {
     string id = 1;
     string IdAuth0 = 2;
     string name = 3;

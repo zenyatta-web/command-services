@@ -2,9 +2,11 @@ package database
 
 import (
 	"context"
+	"log"
 	"zenyatta-web/command-services/data/models"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -31,7 +33,17 @@ func (r *UserMongoRepository) CreateUser(ctx context.Context, user *models.UserM
 }
 
 func (r *UserMongoRepository) UpdateUser(ctx context.Context, user *models.UserModel) (*models.UserModel, error) {
+	// Convertir el identificador a ObjectID si es una cadena
+	if user.Id.IsZero() {
+		var err error
+		user.Id, err = primitive.ObjectIDFromHex(user.Id.Hex())
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	filter := bson.M{"_id": user.Id}
+	log.Printf("El id del filter es: %v", filter)
 	update := bson.M{"$set": user}
 
 	_, err := r.usersCollection.UpdateOne(ctx, filter, update)
